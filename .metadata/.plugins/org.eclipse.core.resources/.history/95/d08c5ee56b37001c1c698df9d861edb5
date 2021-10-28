@@ -1,0 +1,13 @@
+package com.example.demo.data;
+
+import java.io.Serializable;
+
+public class UserEntity implements Serializable{
+ private long id;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String password;
+	private String userId;
+	private String encryptedPassword;
+}
