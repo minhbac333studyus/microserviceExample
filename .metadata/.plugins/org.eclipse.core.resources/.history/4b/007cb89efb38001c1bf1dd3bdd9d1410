@@ -1,0 +1,23 @@
+package com.example.demo.security;
+
+import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.example.demo.model.LoginRequestModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+	@Override
+	public Authentication attemptAuthenication(HttpServletRequest req, HttpServletResponse res)throws AuthenticationException{
+		try {
+			LoginRequestModel  creds        = new ObjectMapper().readValue(req.getInputStream(), LoginRequestModel.class);       
+			return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
+		}
+		
+	}
+}

@@ -1,10 +1,15 @@
 package com.example.demo.controller;
 
+import org.apache.http.HttpStatus;
+import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.CreateUserRequestModel;
+import com.example.demo.model.CreateUserResponseModel;
 import com.example.demo.service.UserServiceImp;
 import com.example.demo.shared.UserDto;
 
@@ -28,12 +34,18 @@ public class UserController {
 		return "working on port " + env.getProperty("local.server.port");
 	}
 
-	@PostMapping
-	public String createUser(@RequestBody CreateUserRequestModel userDetail) {
+	@PostMapping(
+			consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, 
+			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CreateUserResponseModel> createUser(@RequestBody CreateUserRequestModel userDetail)
+			throws Exception {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-		UserDto userDto = modelMapper.map(userDetail,UserDto.class);
-		userService.createUser(userDto);
-		return "Create user method is call";
+		UserDto userDto = modelMapper.map(userDetail, UserDto.class);
+		UserDto createdUser = userService.createUser(userDto);
+		CreateUserResponseModel returnUserValue = modelMapper.map(createdUser, CreateUserResponseModel.class);
+
+		return new ResponseEntity<CreateUserResponseModel>(returnUserValue,
+				org.springframework.http.HttpStatus.CREATED);
 	}
 }
