@@ -1,5 +1,5 @@
 # microserviceExample
-1.USER API
+###1.USER API
 
     server.port=8010
     spring.application.name=users-ws
@@ -18,3 +18,12 @@
 
     #set up in webSecurity that only allow API gateway access source
     gateway.ip =192.168.1.69
+
+###2.Ureka-Server
+
+    server.port=8761
+    spring.application.name=discoveryservice
+    eureka.client.registerWithEureka=false
+    eureka.client.fetchRegistry=false
+    eureka.client.serviceUrl.default-zone = http://localhost:8010/eureka
+    eureka.instance.prefer-ip-address=true 
