@@ -27,3 +27,11 @@
     eureka.client.fetchRegistry=false
     eureka.client.serviceUrl.default-zone = http://localhost:8010/eureka
     eureka.instance.prefer-ip-address=true 
+
+### 3.Zuul Api gateway
+
+    spring.application.name = zuul-api-gateway
+    server.port = 8011
+    eureka.client.service-url.defaultZone = http://localhost:8761/eureka
+    api.login.url.path=/users-ws/users/login
+    api.registration.url.path=/users-ws/users/
