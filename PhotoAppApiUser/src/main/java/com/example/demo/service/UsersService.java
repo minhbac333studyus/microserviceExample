@@ -8,6 +8,6 @@ import com.example.demo.shared.UserDto;
 
 public interface UsersService extends UserDetailsService {
 	UserDto createUser(UserDto userDetails) ;
-
+	UserDto getUserDetailsByEmail(String email);
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

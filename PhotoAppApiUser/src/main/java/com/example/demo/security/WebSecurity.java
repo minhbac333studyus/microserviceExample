@@ -32,7 +32,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 	}
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {
 		AuthenticationFilter authenticationFilter = new AuthenticationFilter();
-		authenticationFilter.setAuthenticationManager(authenticationManager());
+		authenticationFilter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
 		return authenticationFilter;
 	}	
 	@Override protected void configure (AuthenticationManagerBuilder auth)throws Exception{

@@ -1,9 +1,0 @@
-package com.example.demo.repo;
-
-import org.springframework.data.repository.CrudRepository;
-
-import com.example.demo.data.UserEntity;
-
-public class UserRepository implements CrudRepository<User,Long> {
-
-}
