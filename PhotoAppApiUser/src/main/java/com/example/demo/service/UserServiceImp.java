@@ -62,6 +62,6 @@ public class UserServiceImp implements UsersService {
 		if(!userEntity.isPresent()) {
 			throw new UsernameNotFoundException(email);
 		}   
-		return new ModelMapper().map(userEntity, UserDto.class);
+		return new ModelMapper().map(userEntity.get(), UserDto.class);
 	}
 }

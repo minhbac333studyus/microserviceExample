@@ -31,7 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 		return new BCryptPasswordEncoder() ;
 	}
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {
-		AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+		AuthenticationFilter authenticationFilter = new AuthenticationFilter(usersService,environment,authenticationManager());
 		authenticationFilter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
 		return authenticationFilter;
 	}	

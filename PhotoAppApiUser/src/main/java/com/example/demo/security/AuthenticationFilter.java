@@ -33,9 +33,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private UsersService usersService;
 	private Environment environment;
-	
-	public AuthenticationFilter(UsersService usersService, 
-			Environment environment, 
+
+	public AuthenticationFilter(UsersService usersService, Environment environment,
 			AuthenticationManager authenticationManager) {
 		this.usersService = usersService;
 		this.environment = environment;
@@ -51,7 +50,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 			return getAuthenticationManager().authenticate(
 					new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
- 
+
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
